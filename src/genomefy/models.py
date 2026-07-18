@@ -41,6 +41,10 @@ class Candidate:
     channels: list[str] = field(default_factory=list)
     reasons: list[str] = field(default_factory=list)
     estimated_tokens: int = 0
+    facet_ids: list[int] = field(default_factory=list)
+    core_facet_ids: list[int] = field(default_factory=list)
+    matched_terms: list[str] = field(default_factory=list)
+    protected: bool = False
 
 
 @dataclass(slots=True)

@@ -149,6 +149,36 @@ class GenomefyTest(unittest.TestCase):
         self.assertEqual(integrity["categories"]["relational"], 12)
         self.assertEqual(len(integrity["corpus_sha256"]), 64)
 
+    def test_faceted_retrieval_recovers_observed_stage2_misses(self) -> None:
+        stage2 = REPO / "benchmarks/stage2"
+        corpus = self.root / "stage2-corpus.jsonl"
+        corpus.write_bytes((stage2 / corpus.name).read_bytes())
+        Ingestor(self.store).jsonl(corpus)
+        suite = json.loads((stage2 / "stage2-suite.json").read_text(encoding="utf-8"))
+        regression_ids = {"r01", "r03", "m03", "m06", "m07", "m10"}
+
+        for question in suite["questions"]:
+            if question["id"] not in regression_ids:
+                continue
+            with self.subTest(question=question["id"]):
+                result = GenomeRetriever(self.store).query(
+                    question["query"], budget=question["budget"]
+                )
+                selected = {item["gene_id"] for item in result.selected}
+                self.assertTrue(set(question["expected_gene_ids"]).issubset(selected))
+                self.assertLessEqual(result.metrics["context_tokens"], question["budget"])
+                explanation = GenomeRetriever(self.store).explain(result.run_id)
+                plan = explanation["transcript"]["query_plan"]
+                self.assertGreaterEqual(len(plan["facets"]), 2)
+                self.assertEqual(plan["temporal_mode"], "current")
+
+        current = GenomeRetriever(self.store).query(
+            "What is the current audit retention policy?", budget=150
+        )
+        current_ids = {item["gene_id"] for item in current.selected}
+        self.assertIn("gene:retention-v2", current_ids)
+        self.assertNotIn("gene:retention-v1", current_ids)
+
 
 if __name__ == "__main__":
     unittest.main()
