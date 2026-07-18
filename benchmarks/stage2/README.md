@@ -65,3 +65,14 @@ The first official run was executed once on 2026-07-18 after the suite and gates
 | Deterministic stability | 100% | 100% | pass |
 
 The full machine-readable artifact is [`../results/stage2-controlled-60-v1.json`](../results/stage2-controlled-60-v1.json). The human-readable analysis is [`../results/STAGE2_REPORT.md`](../results/STAGE2_REPORT.md).
+
+## Post-fix engineering regression
+
+The frozen result above was not replaced. After diagnosing its misses, facet-aware retrieval was implemented and evaluated twice against the same known suite:
+
+| Engine commit | Coverage | Context reduction | Worst category delta | Outcome |
+|---|---:|---:|---:|---|
+| `73f3677` | 98.33% | 92.96% | -8.33 pp | `PASS` |
+| `22b491b` | 100% | 92.50% | 0.00 pp | `PASS` |
+
+Both post-fix runs kept citation integrity and deterministic stability at 100%. Because the suite was already observed during development, these are regression results rather than independent confirmation. See [`../results/STAGE2_POSTFIX_REPORT.md`](../results/STAGE2_POSTFIX_REPORT.md).

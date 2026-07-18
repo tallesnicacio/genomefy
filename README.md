@@ -87,8 +87,9 @@ The versioned benchmark suites currently report:
 |---:|---|---:|---:|---:|---|
 | 8 | local graph baseline | **37.28%** | **0.00 pp** | **100%** | `INCONCLUSIVE` |
 | 60 | full context | **92.54%** | **-4.17 pp** | **100%** | `FAIL` |
+| 60, known-suite post-fix | full context | **92.50%** | **0.00 pp** | **100%** | `PASS`* |
 
-The smoke suite remains `INCONCLUSIVE` because eight questions are not enough for `PASS`. The frozen 60-question controlled retrieval suite is a real negative result: token reduction, citation integrity and deterministic stability passed, while the overall quality and worst-category gates failed. This is retrieval evidence, not end-to-end LLM answer scoring. See the [Stage 2 report](benchmarks/results/STAGE2_REPORT.md).
+The smoke suite remains `INCONCLUSIVE` because eight questions are not enough for `PASS`. The frozen 60-question controlled retrieval suite is a real negative result: token reduction, citation integrity and deterministic stability passed, while the overall quality and worst-category gates failed. Facet-aware retrieval then passed every frozen gate with 100% key-fact coverage on the same suite. `PASS`* is a post-hoc engineering regression result on a known suite, not independent confirmation. See the [original Stage 2 report](benchmarks/results/STAGE2_REPORT.md) and [post-fix evolution report](benchmarks/results/STAGE2_POSTFIX_REPORT.md).
 
 See [the benchmark protocol](docs/BENCHMARK.md) and the machine-readable [protocol configuration](benchmarks/protocol.json).
 
@@ -197,7 +198,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Status
 
-Genomefy is an experimental `0.1.0` MVP. The storage, retrieval, replay, audit, benchmark and skill-install paths are implemented and tested. The controlled 60-question retrieval evaluation is complete and currently reports `FAIL`; local embeddings, end-to-end answer evaluation, the licensed 300-question suite and DNA Graph UI remain future work.
+Genomefy is an experimental `0.1.0` MVP. The storage, facet-aware retrieval, temporal allele selection, replay, audit, benchmark and skill-install paths are implemented and tested. The original controlled 60-question run remains `FAIL`; the known-suite post-fix regression is `PASS` with 100% coverage. Independent confirmation, local embeddings, end-to-end answer evaluation, the licensed 300-question suite and DNA Graph UI remain future work.
 
 ## License
 

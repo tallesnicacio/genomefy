@@ -44,3 +44,9 @@ Este estágio mede recuperação de evidências. Ele não deve ser descrito como
 A primeira execução oficial usou `o200k_base` e reduziu o contexto em 92,54%, com 100% de integridade referencial das citações e 100% de estabilidade determinística. O resultado permaneceu `FAIL` porque a cobertura de fatos-chave ficou 4,17 pontos percentuais abaixo do contexto completo e a categoria multifatorial regrediu 16,67 pontos percentuais. Os limites eram, respectivamente, 2 e 10 pontos percentuais.
 
 O artefato completo e a análise das seis perguntas com perda de cobertura estão em [`benchmarks/results/STAGE2_REPORT.md`](../benchmarks/results/STAGE2_REPORT.md).
+
+### Evolução pós-correção
+
+O resultado congelado não foi sobrescrito. Após o diagnóstico, o commit `73f3677` introduziu recuperação por facets, normalização lexical, dominância temporal por locus, expansão multipath e seleção orientada à cobertura. Ele atingiu `PASS` com 98,33% de cobertura e 92,96% de economia. O commit `22b491b` passou a preservar toda evidência que corresponda ao núcleo de uma facet antes do corte de expressão e atingiu 100% de cobertura com 92,50% de economia.
+
+Essas medições usam a mesma suíte já conhecida e, portanto, demonstram correção de engenharia e regressão, não confirmação independente. A próxima alegação independente exige uma nova suíte congelada antes da execução. Consulte [`benchmarks/results/STAGE2_POSTFIX_REPORT.md`](../benchmarks/results/STAGE2_POSTFIX_REPORT.md).
