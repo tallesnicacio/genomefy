@@ -1,0 +1,14 @@
+{
+  "name": "genomefy-smoke-v1",
+  "budget": 120,
+  "questions": [
+    {"id":"q1","query":"How does authentication handle refresh tokens?","expected_gene_ids":["gene:auth-decision"]},
+    {"id":"q2","query":"How is audit tampering detected?","expected_gene_ids":["gene:audit-chain"]},
+    {"id":"q3","query":"Can silence change memory utility?","expected_gene_ids":["gene:feedback-rule"]},
+    {"id":"q4","query":"What is the context token reduction gate?","expected_gene_ids":["gene:budget-gate"]},
+    {"id":"q5","query":"What is the quality non-inferiority margin?","expected_gene_ids":["gene:quality-gate"]},
+    {"id":"q6","query":"What citation accuracy is required?","expected_gene_ids":["gene:citation-gate"]},
+    {"id":"q7","query":"List the token and quality benchmark gates","expected_gene_ids":["gene:budget-gate","gene:quality-gate"]},
+    {"id":"q8","query":"What controls feedback and what audit protects it?","expected_gene_ids":["gene:feedback-rule","gene:audit-chain"]}
+  ]
+}

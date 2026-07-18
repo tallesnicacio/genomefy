@@ -1,0 +1,6 @@
+interface:
+  display_name: "Genomefy"
+  short_description: "Local selective and auditable context memory"
+  default_prompt: "Use $genomefy to retrieve local context, answer with citations, and show an audit summary."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Genomefy context transcription</title>
+  <desc id="desc">Project sources become versioned memory, then a small cited context transcript</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1020"/><stop offset="1" stop-color="#14132b"/></linearGradient>
+    <linearGradient id="dna" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="430" rx="26" fill="url(#bg)"/>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="72" y="62" fill="#94a3b8" font-size="19" font-weight="600">PROJECT MEMORY</text>
+    <g fill="#121a31" stroke="#334155" stroke-width="2">
+      <rect x="52" y="88" width="205" height="58" rx="12"/><rect x="52" y="167" width="205" height="58" rx="12"/><rect x="52" y="246" width="205" height="58" rx="12"/>
+    </g>
+    <g fill="#e2e8f0" font-size="18"><text x="78" y="124">architecture.md</text><text x="78" y="203">decisions.jsonl</text><text x="78" y="282">graph.json</text></g>
+    <g stroke="#475569" stroke-width="2" fill="none"><path d="M257 117 C320 117 320 170 380 170"/><path d="M257 196 H380"/><path d="M257 275 C320 275 320 222 380 222"/></g>
+
+    <text x="428" y="62" fill="#94a3b8" font-size="19" font-weight="600">VERSIONED GENOME</text>
+    <g transform="translate(370 92)" fill="none" stroke-linecap="round">
+      <path d="M0 0 C230 0 15 250 245 250" stroke="#22d3ee" stroke-width="8" filter="url(#glow)"/>
+      <path d="M245 0 C15 0 230 250 0 250" stroke="#8b5cf6" stroke-width="8" filter="url(#glow)"/>
+      <g stroke="url(#dna)" stroke-width="4"><path d="M50 18 H195"/><path d="M28 60 H217"/><path d="M18 105 H227"/><path d="M24 150 H221"/><path d="M46 198 H199"/><path d="M83 232 H162"/></g>
+      <g fill="#f8fafc" stroke="#0b1020" stroke-width="3"><circle cx="50" cy="18" r="8"/><circle cx="217" cy="60" r="8"/><circle cx="18" cy="105" r="8"/><circle cx="221" cy="150" r="8"/><circle cx="46" cy="198" r="8"/></g>
+    </g>
+    <text x="415" y="382" fill="#cbd5e1" font-size="17">genes · loci · versions · relations · feedback</text>
+
+    <path d="M655 214 H775" stroke="#64748b" stroke-width="3" stroke-dasharray="8 8"/>
+    <polygon points="775,214 757,204 757,224" fill="#64748b"/>
+    <text x="676" y="190" fill="#94a3b8" font-size="16">transcribe</text>
+
+    <text x="820" y="62" fill="#94a3b8" font-size="19" font-weight="600">BOUNDED CONTEXT</text>
+    <rect x="800" y="88" width="348" height="238" rx="18" fill="#111a2f" stroke="#334155" stroke-width="2"/>
+    <rect x="824" y="112" width="300" height="58" rx="10" fill="#102b38" stroke="#22d3ee"/>
+    <rect x="824" y="184" width="300" height="58" rx="10" fill="#211b3e" stroke="#8b5cf6"/>
+    <g fill="#e2e8f0" font-size="17"><text x="842" y="137">gene: auth-decision</text><text x="842" y="158" fill="#94a3b8" font-size="14">source v2 · cited · selected</text><text x="842" y="209">gene: audit-chain</text><text x="842" y="230" fill="#94a3b8" font-size="14">source v1 · cited · selected</text></g>
+    <rect x="824" y="263" width="224" height="12" rx="6" fill="#334155"/><rect x="824" y="263" width="143" height="12" rx="6" fill="url(#dna)"/>
+    <text x="1060" y="276" fill="#94a3b8" font-size="14">643 / 1000</text>
+    <text x="824" y="304" fill="#94a3b8" font-size="14">run id · source hashes · exclusions</text>
+    <text x="812" y="382" fill="#f8fafc" font-size="21" font-weight="700">Less context. More accountability.</text>
+  </g>
+</svg>
