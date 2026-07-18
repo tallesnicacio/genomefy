@@ -81,13 +81,14 @@ A smaller suite can be `INCONCLUSIVE` or `FAIL`, never `PASS`.
 
 ## Current evidence — honest by design
 
-The versioned smoke suite currently reports:
+The versioned benchmark suites currently report:
 
 | Questions | Comparator | Context reduction | Quality delta | Citation accuracy | Outcome |
 |---:|---|---:|---:|---:|---|
 | 8 | local graph baseline | **37.28%** | **0.00 pp** | **100%** | `INCONCLUSIVE` |
+| 60 | full context | **92.54%** | **-4.17 pp** | **100%** | `FAIL` |
 
-All three numerical gates passed, but eight questions are not enough to claim a real general advantage. The repository therefore reports `INCONCLUSIVE`. The next evaluation stages are a 60-question free end-to-end subset and a licensed, provenance-tracked 300-question suite.
+The smoke suite remains `INCONCLUSIVE` because eight questions are not enough for `PASS`. The frozen 60-question controlled retrieval suite is a real negative result: token reduction, citation integrity and deterministic stability passed, while the overall quality and worst-category gates failed. This is retrieval evidence, not end-to-end LLM answer scoring. See the [Stage 2 report](benchmarks/results/STAGE2_REPORT.md).
 
 See [the benchmark protocol](docs/BENCHMARK.md) and the machine-readable [protocol configuration](benchmarks/protocol.json).
 
@@ -196,7 +197,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Status
 
-Genomefy is an experimental `0.1.0` MVP. The storage, retrieval, replay, audit, benchmark and skill-install paths are implemented and tested. Local embeddings, the 60/300-question evaluations and DNA Graph UI remain future work.
+Genomefy is an experimental `0.1.0` MVP. The storage, retrieval, replay, audit, benchmark and skill-install paths are implemented and tested. The controlled 60-question retrieval evaluation is complete and currently reports `FAIL`; local embeddings, end-to-end answer evaluation, the licensed 300-question suite and DNA Graph UI remain future work.
 
 ## License
 

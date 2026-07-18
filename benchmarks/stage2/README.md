@@ -37,8 +37,9 @@ Run from a clean clone:
 python benchmarks/stage2/generate_dataset.py
 genomefy --root benchmarks/stage2 init
 genomefy --root benchmarks/stage2 ingest jsonl stage2-corpus.jsonl
-genomefy --root benchmarks/stage2 benchmark run stage2-suite.json \
-  --output ../results/stage2-controlled-60-v1.json
+genomefy --root benchmarks/stage2 benchmark run \
+  benchmarks/stage2/stage2-suite.json \
+  --output benchmarks/results/stage2-controlled-60-v1.json
 ```
 
 Use the optional `tokens` extra to count with `o200k_base`:
@@ -50,3 +51,17 @@ python -m pip install -e ".[tokens]"
 ## Interpretation
 
 A `PASS` here means the deterministic retrieval layer passed this controlled 60-question suite. It is evidence of engineering progress, not a claim of universal memory superiority. End-to-end answer scoring and external licensed datasets remain separate stages.
+
+## Frozen v1 result
+
+The first official run was executed once on 2026-07-18 after the suite and gates were locked in commit `9003036`. It used `o200k_base` and reported `FAIL`:
+
+| Gate | Required | Observed | Result |
+|---|---:|---:|---|
+| Context-token reduction | at least 25% | 92.54% | pass |
+| Key-fact coverage delta | at least -2 pp | -4.17 pp | fail |
+| Citation integrity | at least 95% | 100% | pass |
+| Worst-category delta | at least -10 pp | -16.67 pp | fail |
+| Deterministic stability | 100% | 100% | pass |
+
+The full machine-readable artifact is [`../results/stage2-controlled-60-v1.json`](../results/stage2-controlled-60-v1.json). The human-readable analysis is [`../results/STAGE2_REPORT.md`](../results/STAGE2_REPORT.md).
