@@ -35,5 +35,9 @@ class TiktokenCounter:
 def get_counter() -> TokenCounter:
     try:
         return TiktokenCounter()
-    except (ImportError, ModuleNotFoundError):
+    except Exception:
+        # The optional package may be present while its encoding cache is not.
+        # Token counting must remain available in offline environments; callers
+        # can inspect ``name`` to distinguish an exact tokenizer count from the
+        # deterministic regex estimate.
         return RegexTokenCounter()

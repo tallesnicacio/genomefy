@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from genomefy.adapters import Ingestor
 from genomefy.audit import AuditLog
@@ -11,6 +12,7 @@ from genomefy.benchmark import run_benchmark, validate_suite
 from genomefy.retrieval import GenomeRetriever, infer_task
 from genomefy.skill_install import install_skill
 from genomefy.store import GenomeStore
+from genomefy.tokens import RegexTokenCounter, get_counter
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -32,6 +34,12 @@ class GenomefyTest(unittest.TestCase):
         result = Ingestor(self.store).jsonl(target)
         self.assertEqual(result["genes"], 6)
         self.assertEqual(result["relations"], 3)
+
+    def test_token_counter_falls_back_when_optional_backend_is_offline(self) -> None:
+        with patch("genomefy.tokens.TiktokenCounter", side_effect=RuntimeError("offline")):
+            counter = get_counter()
+        self.assertIsInstance(counter, RegexTokenCounter)
+        self.assertEqual(counter.name, "regex-estimate-v1")
 
     def test_init_ingest_query_budget_and_citations(self) -> None:
         self.fixture()
