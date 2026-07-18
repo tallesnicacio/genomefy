@@ -261,9 +261,11 @@ class GenomeRetriever:
             expression_floor = max(candidate.score for candidate in candidates) * 0.70
             expressed: list[Candidate] = []
             for candidate in candidates:
-                if candidate.protected or candidate.score + 1e-12 >= expression_floor:
-                    if candidate.protected and candidate.score + 1e-12 < expression_floor:
-                        candidate.reasons.append("facet-protected")
+                protects_intent = candidate.protected or bool(candidate.core_facet_ids)
+                if protects_intent or candidate.score + 1e-12 >= expression_floor:
+                    if protects_intent and candidate.score + 1e-12 < expression_floor:
+                        reason = "core-facet-protected" if candidate.core_facet_ids else "facet-protected"
+                        candidate.reasons.append(reason)
                     expressed.append(candidate)
                 else:
                     excluded.append({
