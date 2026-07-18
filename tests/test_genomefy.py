@@ -10,7 +10,7 @@ from unittest.mock import patch
 from genomefy import __version__
 from genomefy.adapters import Ingestor
 from genomefy.audit import AuditLog
-from genomefy.benchmark import run_benchmark, validate_suite
+from genomefy.benchmark import _file_sha256, run_benchmark, validate_suite
 from genomefy.retrieval import GenomeRetriever, infer_task
 from genomefy.skill_install import install_skill
 from genomefy.store import GenomeStore
@@ -40,6 +40,13 @@ class GenomefyTest(unittest.TestCase):
     def test_package_version_matches_pyproject(self) -> None:
         project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(__version__, project["project"]["version"])
+
+    def test_locked_text_hash_is_portable_across_line_endings(self) -> None:
+        lf = self.root / "lf.jsonl"
+        crlf = self.root / "crlf.jsonl"
+        lf.write_bytes(b'{"id":1}\n{"id":2}\n')
+        crlf.write_bytes(b'{"id":1}\r\n{"id":2}\r\n')
+        self.assertEqual(_file_sha256(lf), _file_sha256(crlf))
 
     def test_token_counter_falls_back_when_optional_backend_is_offline(self) -> None:
         with patch("genomefy.tokens.TiktokenCounter", side_effect=RuntimeError("offline")):

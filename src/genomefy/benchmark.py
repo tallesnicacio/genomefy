@@ -40,7 +40,12 @@ class MethodResult:
 
 
 def _file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    data = path.read_bytes()
+    # Git may materialize text fixtures with LF or CRLF depending on platform.
+    # Stage 2 was originally locked from a CRLF checkout, so canonicalizing to
+    # CRLF preserves its published digest while making verification portable.
+    canonical = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n").replace(b"\n", b"\r\n")
+    return hashlib.sha256(canonical).hexdigest()
 
 
 def _valid_gene_citation(gene: Gene, sources: dict[str, dict[str, Any]]) -> bool:
