@@ -1,0 +1,620 @@
+{
+  "schema": "genomefy-benchmark-suite-v2",
+  "name": "genomefy-stage2-controlled-retrieval-60-v1",
+  "evaluation_scope": "retrieval-only",
+  "description": "Fictional, deterministic project-memory corpus with direct, relational, temporal, constraint and multi-fact questions.",
+  "expected_questions": 60,
+  "category_counts": {
+    "constraint": 8,
+    "direct": 20,
+    "multifact": 10,
+    "relational": 12,
+    "temporal": 10
+  },
+  "corpus_file": "stage2-corpus.jsonl",
+  "corpus_sha256": "1ad528c9b031391b95bb9cc2048ab8ed8490c60c9c86a0b6a66f91a418c37123",
+  "locked_gates": {
+    "token_savings": 0.25,
+    "quality_margin": -0.02,
+    "citation_accuracy": 0.95,
+    "minimum_questions_for_pass": 30,
+    "category_quality_margin": -0.1,
+    "deterministic_stability": 1.0
+  },
+  "stability": {
+    "question_ids": [
+      "d01",
+      "d05",
+      "d10",
+      "d15",
+      "r01",
+      "r05",
+      "r09",
+      "t01",
+      "t05",
+      "c01",
+      "c06",
+      "m03"
+    ],
+    "repetitions": 3
+  },
+  "questions": [
+    {
+      "id": "d01",
+      "category": "direct",
+      "query": "Which TCP port does the Atlas public gateway use?",
+      "expected_gene_ids": [
+        "gene:gateway-port"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d02",
+      "category": "direct",
+      "query": "Which database engine and major version power Cobalt persistence?",
+      "expected_gene_ids": [
+        "gene:database-engine"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d03",
+      "category": "direct",
+      "query": "Which engine and version provide the Ember cache?",
+      "expected_gene_ids": [
+        "gene:cache-engine"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d04",
+      "category": "direct",
+      "query": "Where is the Iris production control plane hosted?",
+      "expected_gene_ids": [
+        "gene:primary-region"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d05",
+      "category": "direct",
+      "query": "At what UTC time does Luna create its daily backup?",
+      "expected_gene_ids": [
+        "gene:backup-window"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d06",
+      "category": "direct",
+      "query": "Which algorithm signs Mira access tokens?",
+      "expected_gene_ids": [
+        "gene:signing-algorithm"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d07",
+      "category": "direct",
+      "query": "What does Nexus do with a refresh token after it is used?",
+      "expected_gene_ids": [
+        "gene:refresh-policy"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d08",
+      "category": "direct",
+      "query": "How many requests per minute may an authenticated Orbit client send?",
+      "expected_gene_ids": [
+        "gene:rate-limit"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d09",
+      "category": "direct",
+      "query": "Which standard does Prism use to propagate distributed traces?",
+      "expected_gene_ids": [
+        "gene:trace-standard"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d10",
+      "category": "direct",
+      "query": "How long must an SLO violation persist before Quasar opens an alert?",
+      "expected_gene_ids": [
+        "gene:alert-delay"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d11",
+      "category": "direct",
+      "query": "Where does Rhea store immutable artifacts?",
+      "expected_gene_ids": [
+        "gene:object-storage"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d12",
+      "category": "direct",
+      "query": "Which search engine indexes artifact metadata for Sol?",
+      "expected_gene_ids": [
+        "gene:search-engine"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d13",
+      "category": "direct",
+      "query": "What is the maximum size of one Titan upload?",
+      "expected_gene_ids": [
+        "gene:upload-limit"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d14",
+      "category": "direct",
+      "query": "How long does Umbra quarantine a new upload?",
+      "expected_gene_ids": [
+        "gene:quarantine-duration"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d15",
+      "category": "direct",
+      "query": "Which endpoint reports Wave deployment readiness?",
+      "expected_gene_ids": [
+        "gene:health-endpoint"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d16",
+      "category": "direct",
+      "query": "Which schema format does Xenon use for domain events?",
+      "expected_gene_ids": [
+        "gene:schema-format"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d17",
+      "category": "direct",
+      "query": "After how many characters does Zephyr redact credential-like log values?",
+      "expected_gene_ids": [
+        "gene:log-redaction"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d18",
+      "category": "direct",
+      "query": "Which team owns the production service and runbooks?",
+      "expected_gene_ids": [
+        "gene:owner-team"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d19",
+      "category": "direct",
+      "query": "What is the public API p95 latency objective?",
+      "expected_gene_ids": [
+        "gene:latency-slo"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "d20",
+      "category": "direct",
+      "query": "Which channel coordinates production incidents?",
+      "expected_gene_ids": [
+        "gene:incident-channel"
+      ],
+      "budget": 120
+    },
+    {
+      "id": "r01",
+      "category": "relational",
+      "query": "Which database and cache back the Atlas gateway?",
+      "expected_gene_ids": [
+        "gene:database-engine",
+        "gene:cache-engine"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r02",
+      "category": "relational",
+      "query": "Which two controls protect Mira and Nexus token authentication?",
+      "expected_gene_ids": [
+        "gene:signing-algorithm",
+        "gene:refresh-policy"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r03",
+      "category": "relational",
+      "query": "Which upload size, quarantine period and checksum protect artifacts?",
+      "expected_gene_ids": [
+        "gene:upload-limit",
+        "gene:quarantine-duration",
+        "gene:checksum-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r04",
+      "category": "relational",
+      "query": "What latency objective does Quasar monitor and after what delay does it alert?",
+      "expected_gene_ids": [
+        "gene:latency-slo",
+        "gene:alert-delay"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r05",
+      "category": "relational",
+      "query": "Which current deployment strategy is checked through which readiness endpoint?",
+      "expected_gene_ids": [
+        "gene:deploy-v2",
+        "gene:health-endpoint"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r06",
+      "category": "relational",
+      "query": "Which current worker transport carries events in which schema format?",
+      "expected_gene_ids": [
+        "gene:queue-v2",
+        "gene:schema-format"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r07",
+      "category": "relational",
+      "query": "Which redaction rule protects coordination in the production incident channel?",
+      "expected_gene_ids": [
+        "gene:log-redaction",
+        "gene:incident-channel"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r08",
+      "category": "relational",
+      "query": "Which engine makes metadata from the immutable artifact store searchable?",
+      "expected_gene_ids": [
+        "gene:search-engine",
+        "gene:object-storage"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r09",
+      "category": "relational",
+      "query": "Which team operates production and in which primary region?",
+      "expected_gene_ids": [
+        "gene:owner-team",
+        "gene:primary-region"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r10",
+      "category": "relational",
+      "query": "When is the database backed up and which engine is being protected?",
+      "expected_gene_ids": [
+        "gene:backup-window",
+        "gene:database-engine"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r11",
+      "category": "relational",
+      "query": "Which client rate is enforced at the public gateway and which port receives it?",
+      "expected_gene_ids": [
+        "gene:rate-limit",
+        "gene:gateway-port"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "r12",
+      "category": "relational",
+      "query": "How long are current audit records retained and where are immutable artifacts stored?",
+      "expected_gene_ids": [
+        "gene:retention-v2",
+        "gene:object-storage"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "t01",
+      "category": "temporal",
+      "query": "What is the current interactive session lifetime?",
+      "expected_gene_ids": [
+        "gene:session-ttl-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t02",
+      "category": "temporal",
+      "query": "After the February 2026 change, how long does an interactive session last?",
+      "expected_gene_ids": [
+        "gene:session-ttl-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t03",
+      "category": "temporal",
+      "query": "What is the current audit-record retention period?",
+      "expected_gene_ids": [
+        "gene:retention-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t04",
+      "category": "temporal",
+      "query": "Which audit retention policy replaced the old 30-day rule?",
+      "expected_gene_ids": [
+        "gene:retention-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t05",
+      "category": "temporal",
+      "query": "Which deployment strategy is current for production releases?",
+      "expected_gene_ids": [
+        "gene:deploy-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t06",
+      "category": "temporal",
+      "query": "What release strategy replaced rolling replacement?",
+      "expected_gene_ids": [
+        "gene:deploy-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t07",
+      "category": "temporal",
+      "query": "Which message queue do workers currently consume?",
+      "expected_gene_ids": [
+        "gene:queue-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t08",
+      "category": "temporal",
+      "query": "What transport replaced RabbitMQ for worker jobs?",
+      "expected_gene_ids": [
+        "gene:queue-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t09",
+      "category": "temporal",
+      "query": "Which checksum is currently required for artifact integrity?",
+      "expected_gene_ids": [
+        "gene:checksum-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "t10",
+      "category": "temporal",
+      "query": "What integrity check replaced MD5?",
+      "expected_gene_ids": [
+        "gene:checksum-v2"
+      ],
+      "budget": 130
+    },
+    {
+      "id": "c01",
+      "category": "constraint",
+      "query": "Current session duration -deprecated",
+      "expected_gene_ids": [
+        "gene:session-ttl-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c02",
+      "category": "constraint",
+      "query": "Current audit retention -deprecated",
+      "expected_gene_ids": [
+        "gene:retention-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c03",
+      "category": "constraint",
+      "query": "Current production deployment strategy -deprecated",
+      "expected_gene_ids": [
+        "gene:deploy-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c04",
+      "category": "constraint",
+      "query": "Current worker message queue -deprecated",
+      "expected_gene_ids": [
+        "gene:queue-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c05",
+      "category": "constraint",
+      "query": "Current artifact checksum -deprecated",
+      "expected_gene_ids": [
+        "gene:checksum-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c06",
+      "category": "constraint",
+      "query": "Upload limit quarantine and current checksum -deprecated",
+      "expected_gene_ids": [
+        "gene:upload-limit",
+        "gene:quarantine-duration",
+        "gene:checksum-v2"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c07",
+      "category": "constraint",
+      "query": "Current message transport and event schema -deprecated",
+      "expected_gene_ids": [
+        "gene:queue-v2",
+        "gene:schema-format"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "c08",
+      "category": "constraint",
+      "query": "Current release strategy and readiness endpoint -deprecated",
+      "expected_gene_ids": [
+        "gene:deploy-v2",
+        "gene:health-endpoint"
+      ],
+      "budget": 210
+    },
+    {
+      "id": "m01",
+      "category": "multifact",
+      "query": "Summarize public ingress: gateway port, client rate and readiness endpoint.",
+      "expected_gene_ids": [
+        "gene:gateway-port",
+        "gene:rate-limit",
+        "gene:health-endpoint"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m02",
+      "category": "multifact",
+      "query": "Name the database, cache, search engine and immutable object store.",
+      "expected_gene_ids": [
+        "gene:database-engine",
+        "gene:cache-engine",
+        "gene:search-engine",
+        "gene:object-storage"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m03",
+      "category": "multifact",
+      "query": "Summarize authentication: signing algorithm, refresh-token behavior and current session lifetime.",
+      "expected_gene_ids": [
+        "gene:signing-algorithm",
+        "gene:refresh-policy",
+        "gene:session-ttl-v2"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m04",
+      "category": "multifact",
+      "query": "Give the backup time, alert delay and incident coordination channel.",
+      "expected_gene_ids": [
+        "gene:backup-window",
+        "gene:alert-delay",
+        "gene:incident-channel"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m05",
+      "category": "multifact",
+      "query": "State the upload limit, quarantine duration and current integrity checksum.",
+      "expected_gene_ids": [
+        "gene:upload-limit",
+        "gene:quarantine-duration",
+        "gene:checksum-v2"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m06",
+      "category": "multifact",
+      "query": "Name the current message queue, event schema and owning team.",
+      "expected_gene_ids": [
+        "gene:queue-v2",
+        "gene:schema-format",
+        "gene:owner-team"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m07",
+      "category": "multifact",
+      "query": "State the tracing standard, latency objective and log-redaction threshold.",
+      "expected_gene_ids": [
+        "gene:trace-standard",
+        "gene:latency-slo",
+        "gene:log-redaction"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m08",
+      "category": "multifact",
+      "query": "Give the primary region, current deployment strategy and readiness endpoint.",
+      "expected_gene_ids": [
+        "gene:primary-region",
+        "gene:deploy-v2",
+        "gene:health-endpoint"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m09",
+      "category": "multifact",
+      "query": "How long are audits retained and when is the database backup created?",
+      "expected_gene_ids": [
+        "gene:retention-v2",
+        "gene:backup-window"
+      ],
+      "budget": 280
+    },
+    {
+      "id": "m10",
+      "category": "multifact",
+      "query": "Which search engine covers the artifact store and what retention applies to audits?",
+      "expected_gene_ids": [
+        "gene:search-engine",
+        "gene:object-storage",
+        "gene:retention-v2"
+      ],
+      "budget": 280
+    }
+  ]
+}

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from genomefy.adapters import Ingestor
 from genomefy.audit import AuditLog
-from genomefy.benchmark import run_benchmark
+from genomefy.benchmark import run_benchmark, validate_suite
 from genomefy.retrieval import GenomeRetriever, infer_task
 from genomefy.skill_install import install_skill
 from genomefy.store import GenomeStore
@@ -126,6 +126,20 @@ class GenomefyTest(unittest.TestCase):
         self.assertEqual(report["questions"], 8)
         self.assertIn(report["outcome"], {"INCONCLUSIVE", "FAIL"})
         self.assertEqual(report["paired_bootstrap"]["quality_delta"]["iterations"], 10_000)
+
+    def test_stage2_suite_is_locked_and_references_real_genes(self) -> None:
+        stage2 = REPO / "benchmarks/stage2"
+        corpus = stage2 / "stage2-corpus.jsonl"
+        local_corpus = self.root / corpus.name
+        local_corpus.write_bytes(corpus.read_bytes())
+        result = Ingestor(self.store).jsonl(local_corpus)
+        self.assertEqual(result["genes"], 30)
+        self.assertEqual(result["relations"], 14)
+        integrity = validate_suite(self.store, stage2 / "stage2-suite.json")
+        self.assertEqual(sum(integrity["categories"].values()), 60)
+        self.assertEqual(integrity["categories"]["direct"], 20)
+        self.assertEqual(integrity["categories"]["relational"], 12)
+        self.assertEqual(len(integrity["corpus_sha256"]), 64)
 
 
 if __name__ == "__main__":

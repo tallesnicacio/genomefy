@@ -28,7 +28,13 @@ São medidos recall, precisão, F1, MRR, nDCG, cobertura, citações e tokens. U
 ## Escala planejada
 
 1. Smoke local versionado, sem alegação científica.
-2. Subconjunto gratuito de 60 questões, com 12 repetidas três vezes.
+2. Avaliação controlada de recuperação com 60 questões em cinco categorias, sendo 12 repetidas três vezes para estabilidade.
 3. Suite de 300 questões: 150 de repositórios, 100 de contexto longo e 50 temporais próprias.
 
 Datasets externos não são empacotados. Importá-los exige licença, versão, hash e checagem de vazamento. O benchmark não pode ler fora do escopo configurado.
+
+### Gates adicionais do estágio 2
+
+Antes da primeira execução, o estágio de 60 questões acrescenta duas proteções: nenhuma categoria pode regredir mais de 10 pontos percentuais contra o comparador selecionado e as 12 questões de estabilidade devem produzir seleção, contexto e contagem de tokens idênticos nas três repetições.
+
+Este estágio mede recuperação de evidências. Ele não deve ser descrito como avaliação end-to-end da resposta textual de um modelo. Consulte [`benchmarks/stage2/README.md`](../benchmarks/stage2/README.md).
