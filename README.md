@@ -198,7 +198,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Status
 
-Genomefy is an experimental `0.1.0` MVP. The storage, facet-aware retrieval, temporal allele selection, replay, audit, benchmark and skill-install paths are implemented and tested. The original controlled 60-question run remains `FAIL`; the known-suite post-fix regression is `PASS` with 100% coverage. Independent confirmation, local embeddings, end-to-end answer evaluation, the licensed 300-question suite and DNA Graph UI remain future work.
+Genomefy `0.2.0` is an experimental but functional release. The storage, facet-aware retrieval, temporal allele selection, replay, audit, benchmark and skill-install paths are implemented and tested. The original controlled 60-question run remains `FAIL`; the known-suite post-fix regression is `PASS` with 100% coverage. Independent confirmation, local embeddings, end-to-end answer evaluation, the licensed 300-question suite and DNA Graph UI remain future work.
 
 ## License
 

@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from genomefy import __version__
 from genomefy.adapters import Ingestor
 from genomefy.audit import AuditLog
 from genomefy.benchmark import run_benchmark, validate_suite
@@ -34,6 +36,10 @@ class GenomefyTest(unittest.TestCase):
         result = Ingestor(self.store).jsonl(target)
         self.assertEqual(result["genes"], 6)
         self.assertEqual(result["relations"], 3)
+
+    def test_package_version_matches_pyproject(self) -> None:
+        project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(__version__, project["project"]["version"])
 
     def test_token_counter_falls_back_when_optional_backend_is_offline(self) -> None:
         with patch("genomefy.tokens.TiktokenCounter", side_effect=RuntimeError("offline")):
