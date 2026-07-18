@@ -2,9 +2,15 @@
   "schema": "genomefy-protocol-v1",
   "corpus_scope": "explicit_project_only",
   "planned_suites": {
-    "free_end_to_end": {"questions": 60, "stability_questions": 12, "repetitions": 3},
+    "controlled_retrieval": {"questions": 60, "categories": 5, "stability_questions": 12, "repetitions": 3},
     "full": {"questions": 300, "repository": 150, "long_context": 100, "temporal_custom": 50}
   },
-  "gates": {"token_savings": 0.25, "quality_margin": -0.02, "citation_accuracy": 0.95},
+  "gates": {
+    "token_savings": 0.25,
+    "quality_margin": -0.02,
+    "citation_accuracy": 0.95,
+    "category_quality_margin": -0.10,
+    "deterministic_stability": 1.0
+  },
   "paired_bootstrap_iterations": 10000
 }

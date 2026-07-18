@@ -2,15 +2,19 @@ from __future__ import annotations
 
 import json
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
+from genomefy import __version__
 from genomefy.adapters import Ingestor
 from genomefy.audit import AuditLog
-from genomefy.benchmark import run_benchmark
+from genomefy.benchmark import _file_sha256, run_benchmark, validate_suite
 from genomefy.retrieval import GenomeRetriever, infer_task
 from genomefy.skill_install import install_skill
 from genomefy.store import GenomeStore
+from genomefy.tokens import RegexTokenCounter, get_counter
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -32,6 +36,23 @@ class GenomefyTest(unittest.TestCase):
         result = Ingestor(self.store).jsonl(target)
         self.assertEqual(result["genes"], 6)
         self.assertEqual(result["relations"], 3)
+
+    def test_package_version_matches_pyproject(self) -> None:
+        project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(__version__, project["project"]["version"])
+
+    def test_locked_text_hash_is_portable_across_line_endings(self) -> None:
+        lf = self.root / "lf.jsonl"
+        crlf = self.root / "crlf.jsonl"
+        lf.write_bytes(b'{"id":1}\n{"id":2}\n')
+        crlf.write_bytes(b'{"id":1}\r\n{"id":2}\r\n')
+        self.assertEqual(_file_sha256(lf), _file_sha256(crlf))
+
+    def test_token_counter_falls_back_when_optional_backend_is_offline(self) -> None:
+        with patch("genomefy.tokens.TiktokenCounter", side_effect=RuntimeError("offline")):
+            counter = get_counter()
+        self.assertIsInstance(counter, RegexTokenCounter)
+        self.assertEqual(counter.name, "regex-estimate-v1")
 
     def test_init_ingest_query_budget_and_citations(self) -> None:
         self.fixture()
@@ -126,6 +147,50 @@ class GenomefyTest(unittest.TestCase):
         self.assertEqual(report["questions"], 8)
         self.assertIn(report["outcome"], {"INCONCLUSIVE", "FAIL"})
         self.assertEqual(report["paired_bootstrap"]["quality_delta"]["iterations"], 10_000)
+
+    def test_stage2_suite_is_locked_and_references_real_genes(self) -> None:
+        stage2 = REPO / "benchmarks/stage2"
+        corpus = stage2 / "stage2-corpus.jsonl"
+        local_corpus = self.root / corpus.name
+        local_corpus.write_bytes(corpus.read_bytes())
+        result = Ingestor(self.store).jsonl(local_corpus)
+        self.assertEqual(result["genes"], 30)
+        self.assertEqual(result["relations"], 14)
+        integrity = validate_suite(self.store, stage2 / "stage2-suite.json")
+        self.assertEqual(sum(integrity["categories"].values()), 60)
+        self.assertEqual(integrity["categories"]["direct"], 20)
+        self.assertEqual(integrity["categories"]["relational"], 12)
+        self.assertEqual(len(integrity["corpus_sha256"]), 64)
+
+    def test_faceted_retrieval_recovers_observed_stage2_misses(self) -> None:
+        stage2 = REPO / "benchmarks/stage2"
+        corpus = self.root / "stage2-corpus.jsonl"
+        corpus.write_bytes((stage2 / corpus.name).read_bytes())
+        Ingestor(self.store).jsonl(corpus)
+        suite = json.loads((stage2 / "stage2-suite.json").read_text(encoding="utf-8"))
+        regression_ids = {"r01", "r03", "r07", "r11", "m03", "m06", "m07", "m10"}
+
+        for question in suite["questions"]:
+            if question["id"] not in regression_ids:
+                continue
+            with self.subTest(question=question["id"]):
+                result = GenomeRetriever(self.store).query(
+                    question["query"], budget=question["budget"]
+                )
+                selected = {item["gene_id"] for item in result.selected}
+                self.assertTrue(set(question["expected_gene_ids"]).issubset(selected))
+                self.assertLessEqual(result.metrics["context_tokens"], question["budget"])
+                explanation = GenomeRetriever(self.store).explain(result.run_id)
+                plan = explanation["transcript"]["query_plan"]
+                self.assertGreaterEqual(len(plan["facets"]), 1)
+                self.assertEqual(plan["temporal_mode"], "current")
+
+        current = GenomeRetriever(self.store).query(
+            "What is the current audit retention policy?", budget=150
+        )
+        current_ids = {item["gene_id"] for item in current.selected}
+        self.assertIn("gene:retention-v2", current_ids)
+        self.assertNotIn("gene:retention-v1", current_ids)
 
 
 if __name__ == "__main__":

@@ -165,7 +165,7 @@ Leia a [especificação do DNA Graph](../DNA_GRAPH_VISUALIZATION.md).
 
 ## Estado atual
 
-Genomefy é um MVP experimental `0.1.0`. Armazenamento, recuperação, replay, auditoria, benchmark e instalação da skill estão implementados e testados. Embeddings locais, avaliações de 60/300 questões e a interface DNA Graph ainda são trabalhos futuros.
+Genomefy `0.2.0` é uma versão experimental, mas funcional. Armazenamento, recuperação por facets, seleção temporal de alelos, replay, auditoria, benchmark e instalação da skill estão implementados e testados. A execução controlada original de 60 perguntas permanece `FAIL`; a regressão pós-correção na suíte conhecida é `PASS` com 100% de cobertura. Confirmação independente, embeddings locais, avaliação end-to-end, a suíte licenciada de 300 perguntas e a interface DNA Graph ainda são trabalhos futuros.
 
 ## Desenvolvimento e licença
 

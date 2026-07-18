@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -12,6 +13,7 @@ from .models import Gene, Relation
 
 
 SCHEMA_VERSION = "1"
+FTS_WORD = re.compile(r"\w+", re.UNICODE)
 
 
 def utc_now() -> str:
@@ -173,7 +175,11 @@ class GenomeStore:
         return [self._gene(row) for row in rows]
 
     def fts(self, query: str, limit: int = 50) -> list[tuple[Gene, float]]:
-        safe = " OR ".join(f'"{term}"' for term in query.split() if term.replace("_", "").isalnum())
+        # Build the FTS expression from normalized words instead of whitespace
+        # chunks. This keeps punctuation out of MATCH syntax and makes forms such
+        # as ``log-redaction`` discover both ``log`` and ``redaction``.
+        normalized = [term.casefold() for term in FTS_WORD.findall(query) if len(term) > 1]
+        safe = " OR ".join(f'"{term}"' for term in dict.fromkeys(normalized))
         if not safe:
             return []
         with self.connect() as db:
